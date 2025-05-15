@@ -1,24 +1,34 @@
-const entryCache = {
-    data: {},
-    set(key, value, ttl = 3600) {
-        this.data[key] = {
-            value,
-            expiresAt: Date.now() + ttl*1000
-        }
-    },
-    get(key) {
-        const item = this.data[key];
-        if(!item) return null;
+const cache = new Map();
 
-        if(item.expiresAt < Date.now()) {
-            delete this.data[key];
-            return null;
-        }
+function setCache(key, value, ttl = 10800000) {
+  cache.set(key, {
+    value,
+    expiresAt: ttl ? Date.now() + ttl : null
+  });
 
-        return item.value;
-    },
-    delete(key) {
-        delete this.data[key];
-    }
+  if (ttl) {
+    setTimeout(() => {
+      cache.delete(key);
+    }, ttl);
+  }
+}
 
+function getCache(key) {
+  const data = cache.get(key);
+  if (!data) return null;
+
+  if (data.expiresAt && Date.now() > data.expiresAt) {
+    cache.delete(key);
+    return null;
+  }
+
+  return data.value;
+}
+
+function deleteCache(key) {
+  cache.delete(key);
+}
+
+export {
+    setCache, getCache, deleteCache
 }

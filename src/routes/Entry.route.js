@@ -1,14 +1,21 @@
 import { Router } from "express";
-import { EntriyController } from "../controllers/EntryController.js";
+import { EntriyController } from "../controllers/Entry.controller.js";
 
-const router = Router();
+const entryRouter = Router();
 const controller = new EntriyController();
 
-router.post('/{id}', (req, res) => {
+entryRouter.post('/handle/:id', (req, res) => {
     controller.handelEntry(req, res);
-
 });
 
+entryRouter.get('/fetch', (req, res) => {
+    controller.fetchAllEntries(req, res);
+});
+
+entryRouter.get('/fetch/:id', (req, res) => {
+    controller.fetchEntry(req, res);
+})
+
 export {
-    entryRouter as router
+    entryRouter
 }
