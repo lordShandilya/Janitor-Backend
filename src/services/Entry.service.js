@@ -25,6 +25,7 @@ export class EntryService {
         const entry =  await this.repo.createEntry(id);
         const cacheKey = `user_${id}`;
         setCache(cacheKey, entry);
+        if(!entry) return null;
         return entry;
     }
 

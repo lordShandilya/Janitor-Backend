@@ -1,4 +1,4 @@
-import { User } from "../models/User";
+import { User } from "../models/User.js";
 import { pool } from "../config/db.js";
 
 export class UserRepository {
@@ -34,5 +34,16 @@ export class UserRepository {
         const { rows } = await pool.query(query);
         if(rows.length===0) return null;
         return rows.map(row => new User(row.roll, row.name, row.email, row.contact, row.room, row.hostel));
+    }
+
+    async updateUser(user) {
+        const query = `
+            UPDATE users
+            SET verified = true
+            WHERE roll = $6;
+        `;
+
+        await pool.query(query);
+        return user;
     }
 }

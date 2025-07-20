@@ -8,7 +8,8 @@ const query = `
         email VARCHAR(100) UNIQUE NOT NULL,
         contact INTEGER UNIQUE NOT NULL,
         room INTEGER NOT NULL,
-        hostel VARCHAR(100) NOT NULL
+        hostel VARCHAR(100) NOT NULL,
+        verified BOOLEAN
     );
 `;
 
