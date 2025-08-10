@@ -7,11 +7,16 @@ export class UserService {
     }
 
     async createUser(roll, name, email, contact, room, hostel) {
-        if(!(isValidEmail(email) && isValidRoll(roll) && isValidPhoneNumber(contact) && isValidRoomNumber(room))) return false;
+        
 
         const user = await this.repo.createUser(roll, name, email, contact, room, hostel);
         if(!user) return null;
         return user;
+    }
+
+    async fetchUserByRoll(roll) {
+
+        return await this.repo.getUserByRoll(roll);
     }
 
     async verifyUser(roll) {
