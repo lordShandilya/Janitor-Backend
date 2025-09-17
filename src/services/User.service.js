@@ -14,7 +14,7 @@ export class UserService {
         return user;
     }
 
-    async fetchUserByRoll(roll) {
+    async fetchUserByRoll(roll) {   
 
         return await this.repo.getUserByRoll(roll);
     }

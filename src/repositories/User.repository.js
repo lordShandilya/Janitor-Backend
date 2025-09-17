@@ -5,13 +5,13 @@ export class UserRepository {
     
     async createUser(roll, name, email, contact, room, hostel) {
         const query =  `
-            INSERT INTO users (roll, name, email, contact, room, hostel)
-            VALUES ($1, $2, $3, $4, $5, $6);        
+            INSERT INTO users (roll, name, email, contact, password)
+            VALUES ($1, $2, $3, $4, $5);
         `;
-        
-        await pool.query(query, [roll, name, email, contact, room, hostel])
 
-        return new User(roll, name, email, contact, room, hostel)
+        await pool.query(query, [roll, name, email, contact, password]);
+
+        return new User(roll, name, email, contact, password)
     }
 
     async getUserByRoll(roll) {

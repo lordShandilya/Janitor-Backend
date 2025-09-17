@@ -7,5 +7,6 @@ export class User {
         this.contact = contact
         this.room = room
         this.hostel = hostel
+        this.password = 'default_password'
     }
 }

@@ -1,4 +1,4 @@
-import jwt_token from '../utils/jwt_token.js';
+import jwt_token from '../utils/jwt.util.js';
 import { isValidEmail, isValidPhoneNumber, isValidRoll, isValidRoomNumber } from '../utils/validation.util.js';
 
 const JWT_SECRET = process.env.JWT_SECRET|| 'default_jwt_secret';
@@ -9,7 +9,7 @@ class UserMiddleware {
         this.jwt_token = jwt_token;
     }
 
-    validateUserData(req, res, next) {
+    static validateUserData(req, res, next) {
         const { username, email } = req.body;
 
         if (!username || !email) {

@@ -7,9 +7,10 @@ const query = `
         name VARCHAR(100) NOT NULL,
         email VARCHAR(100) UNIQUE NOT NULL,
         contact INTEGER UNIQUE NOT NULL,
-        room INTEGER NOT NULL,
-        hostel VARCHAR(100) NOT NULL,
-        verified BOOLEAN
+        room VARCHAR(100) ,
+        hostel VARCHAR(100),
+        verified BOOLEAN DEFAULT false,
+        password VARCHAR(100) NOT NULL DEFAULT 'default_password'
     );
 `;
 

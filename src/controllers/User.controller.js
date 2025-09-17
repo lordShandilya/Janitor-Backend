@@ -1,7 +1,7 @@
 import { UserService } from "../services/User.service.js";
 import jwt_token from "../utils/jwt.util.js";
 
-const JWT_SECRET = process.env.JWT_SECRET || "default_jwt_secret";
+const   JWT_SECRET = process.env.JWT_SECRET || "default_jwt_secret";
 
 
 export class UserController {
@@ -22,11 +22,14 @@ export class UserController {
     }
 
     async userLogin(req, res) {
-        const { roll } = req.params;
+        const { roll, password } = req.body;
 
         const user = await this.service.fetchUserByRoll(roll);
         if(!user) {
             return res.status(404).json({ message: "User not found" });
+        }
+        if(password !== user.password) {
+            return res.status(401).json({ message: "Invalid credentials" });
         }
         const accessToken = this.jwt.generateToken({ roll: user.roll }, JWT_SECRET, { expiresIn: '1h' });
         const refreshToken = this.jwt.generateToken({ roll: user.roll }, JWT_SECRET, { expiresIn: '7d' });
